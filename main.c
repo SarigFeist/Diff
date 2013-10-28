@@ -23,6 +23,14 @@ int main(int argc, char** argv)
         {
 
         }
+		else if (3 > argc) // Commande sans option
+        {
+
+        }
+		else if (3 > argc) // Commande sans option
+        {
+
+        }
         else // Commande avec option
         {
 
