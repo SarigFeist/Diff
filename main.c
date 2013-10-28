@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//TEST NINJA COMMIT
 int main(int argc, char** argv)
 {
     enum boolean
