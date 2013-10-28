@@ -8,6 +8,11 @@ int main(int argc, char** argv)
         false = 0,
         true = 1
     }typedef boolean;
+	
+	struct option
+	{
+	}
+	;
 
     {
         if (2 > argc) //Pas assez de paramètre
