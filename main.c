@@ -1,22 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Définition des structures globales
+// Definition des structures globales
 
-typedef enum boolean // création du type booleen
+typedef enum boolean // creation du type booleen
 {
     false = 0,
     true = 1
 } boolean;
 
 
-struct option // création de la structure d'option
+struct option // creation de la structure d'option
 {
 }
 ;
 
 
-// Déclaration des fonctions
+// Declaration des fonctions
 int **createTable(int nbLin, int nbCol);
 
 
@@ -40,11 +40,7 @@ int main(int argc, char** argv)
         {
 
         }
-        else if ( 4== argc) // une seule option
-        {
-
-        }
-        else // Commande avec plusieurs options
+        else // Commande avec une ou plusieurs options
         {
 
         }
@@ -56,7 +52,7 @@ int main(int argc, char** argv)
 
 
 
-// Définition des fonctions
+// Definition des fonctions
 int **createTable(int nbLin, int nbCol)
 {
     int **tableau = (int **)malloc(sizeof(int*)*nbLin);
