@@ -18,13 +18,16 @@ struct option // creation de la structure d'option
 
 // Declaration des fonctions
 boolean DiffNoOption(char * ch1, char * ch2);
+boolean WOption(char * ch1, char *ch2);
 void Affiche(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2);
-
+void AfficheY(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2);
+void VOption();
+void HelpOption();
 
 // Fonction principale
 int main(int argc, char** argv)
 {
-    // déclaration des variables
+    // declaration des variablese
     int *TabStockIndex1,*TabStockIndex2,Nombredelignes,Nombredelignes2,Nombreindice1,Nombreindice2;
     FILE* file1 = NULL;
     FILE* file2 = NULL;
@@ -104,7 +107,7 @@ int main(int argc, char** argv)
             }
              else if (3 == argc) // Commande sans option
             {
-                difference=DiffNoOption(chaine1,chaine2);
+                //difference=DiffNoOption(chaine1,chaine2);
 
             }
             else // Commande avec une ou plusieurs options
@@ -198,18 +201,18 @@ int main(int argc, char** argv)
                 TabStockIndex1[Nombreindice1]=Nombredelignes-1;
                 Nombreindice1++;
             }
-    fclose(file1);
-    fclose(file2);
+    fseek(file1,0,SEEK_SET);
+    fseek(file2,0,SEEK_SET);
 
 
 // Affichage
         // ouverture des fichiers
-        file1 = fopen(argv[argc-2], "r");
-        file2 = fopen(argv[argc-1], "r");
-        Affiche(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
+
+        //Affiche(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
         fclose(file1);
         fclose(file2);
-
+        HelpOption();
+        VOption();
     return 0;
 }
 
@@ -260,6 +263,213 @@ boolean DiffNoOption(char * ch1, char * ch2)
             return false;
 }
 
+// option W
+boolean WOption(char * ch1, char *ch2)
+{
+    int i=0,j=0,cpt=0,cpt2=0;
+    while(ch1[cpt]!='\0')
+    {
+        cpt++;
+
+    }
+
+    while(ch2[cpt2]!='\0')
+    {
+        cpt2++;
+    }
+    if(cpt<=cpt2)
+    {
+        while(i<cpt) // on compare les caracteres car les chaines on la même longueur
+        {
+
+            if(ch1[i]==' ')
+                i++;
+            else if( ch2[j]==' ')
+                j++;
+            else
+            {
+                if(ch1[i]!= ch2[j])
+                {
+                return true;
+                break;
+                }
+
+                i++;
+                j++;
+             }
+        }
+     }
+    else
+    {
+        while(i<cpt2) // on compare les caracteres car les chaines on la même longueur
+        {
+
+            if(ch1[i]==' ')
+                i++;
+            else if( ch2[j]==' ')
+                j++;
+            else
+            {
+                if(ch1[i]!= ch2[j])
+                {
+                return true;
+                break;
+                }
+
+                i++;
+                j++;
+             }
+
+        }
+    }
+    return false;
+}
+
+// Fonction version
+void VOption()
+{
+    printf(" Fonction Diff realiser par Emerich IMBART, Lucas .... , Laurent  Mazza Dans le cadre du projet de langage C pour L ESGI \n ");
+
+}
+
+// Fonction Help
+void HelpOption()
+{
+printf("Usage: diff [OPTION]... FICHIERS\n");
+printf("Comparer les fichiers ligne par ligne.\n");
+printf("Les parametres requis pour les options longues sont egalement requis pour les options courtes.\n");
+printf("--normal Produire un « diff » en format normal (par defaut)\n");
+printf("-q, --brief Indiquer seulement si les fichiers different\n");
+printf("-s, --report-identical-files Indiquer si les deux fichiers sont identiques\n");
+printf("-c, -C N, --context[=N] Afficher N (3 par defaut) lignes du contexte copie\n");
+printf("-u, -U N, --unified[=N] Afficher N (3 par defaut) lignes dans le context unifie\n");
+printf("-e, --ed Generer un script pour « ed »\n");
+printf("-n, --rcs Generer un fichier « diff » au format RCS\n");
+printf("-y, --side-by-side Affichage sur deux colonnes\n");
+printf("-w, --width=N Limiter la sortie a au plus N colonnes imprimees (130 par defaut)\n");
+printf("--left-column Afficher les lignes identiques uniquement dans la colonne de gauche\n");
+printf("--suppress-common-lines Ne pas afficher les lignes identiques\n");
+printf("-p, --show-c-function Afficher dans quelle fonction C le changement se trouve\n");
+printf("-F, --show-function-line=RE Montrer la ligne la plus recente correspondant a RE\n");
+printf("--label eTIQUETTE Utiliser eTIQUETTE au lieu du nom de fichier\n");
+printf("(peut etre repete)\n");
+printf("-t, --expand-tabs etaler les tabulateurs en espaces dans la sortie\n");
+printf("-T, --initial-tab Aligner les tabulateurs en prefixant un tabulateur\n");
+printf("--tabsize=N Les balises de tabulation sont a chaque N (8 par defaut) colonnes\n");
+printf("SUPPORT DE COURS EXERCICES ReSULTATS PROJET\n");
+printf("--suppress-blank-empty Supprimer les espaces et les tabulations avant les lignes vides\n");
+printf("-l, --paginate Relayer la sortie a « pr » afin de la paginer\n");
+printf("-r, --recursive Comparer recursivement les sous-repertoires trouves\n");
+printf("-N, --new-file Traiter les fichiers absents comme des fichiers vides\n");
+printf("--unidirectional-new-file Traiter les premiers fichiers absents comme vides\n");
+printf("--ignore-file-name-case Ignorer la casse lors de la comparaison des noms de fichiers\n");
+printf("--no-ignore-file-name-case Tenir compte de la casse lors de la comparaison des noms de fichiers\n");
+printf("-x, --exclude=PAT Exclure les fichiers dont les noms concordent avec le PATron\n");
+printf("-X, --exclude-from=FICHIER Exclure les fichiers dont les noms\n");
+printf("concordent avec ceux contenus dans le FICHIER\n");
+printf("-S, --starting-file=FICHIER Debuter la comparaison des repertoires par le FICHIER\n");
+printf("--from-file=FICHIER1 Comparer le FICHIER1 a toutes les operandes.\n");
+printf("FICHIER1 peut etre un repertoire\n");
+printf("--to-file=FICHIER2 Comparer toutes les operandes a FICHIER2.\n");
+printf("FICHIER2 peut etre un repertoire\n");
+printf("-i, --ignore-case Ignorer les differences de casses dans le contenu des fichiers\n");
+printf("-E, --ignore-tab-expansion Ignorer les changements lies a l expansion des tabulations\n");
+printf("-Z, --ignore-trailing-space ignore white space at line end\n");
+printf("-b, --ignore-space-change Ignorer les changements dans le nombre d espaces\n");
+printf("-w, --ignore-all-space Ignorer tout blanc d espacement\n");
+printf("-B, --ignore-blank-lines Ignorer les changements dont toutes les lignes sont blanches\n");
+printf("-I, --ignore-matching-lines=RE Ignorer les differences dont toutes les\n");
+printf("lignes concordent avec l expression reguliere RE\n");
+printf("-a, --text Traiter tous les fichiers comme des textes\n");
+printf("--strip-trailing-cr eliminer les retours de chariot de l entree\n");
+printf("-D, --ifdef=NOM Afficher les fichiers fusionnes en marquant les differences par des « #ifdef NOM »\n");
+printf("--GTYPE-group-format=GFMT Formater les groupes d entree GTYPE avec GFMT\n");
+printf("--line-format=LFMT Formater toutes les lignes d entree avec LFMT\n");
+printf("--LTYPE-line-format=LFMT Formater les lignes d entree LTYPE avec LFMT\n");
+printf("Ces options de formatage fournissent un contrôle fin sur la sortie\n");
+printf("de diff et generalise -D/--ifdef.\n");
+printf("LTYPE peut etre soit « old », « new », ou « unchanged ». GTYPE prend une des valeurs de LTYPE ou « changed ».\n");
+printf("GFMT (uniquement) peut contenir :\n");
+printf("%< pour marquer les lignes du FICHIER1\n");
+printf("%> pour marquer les lignes du FICHIER2\n");
+printf("%= pour marquer les lignes identiques entre FICHIER1 et FICHIER2\n");
+printf("%[-][LARGEUR][.[PREC]]{doxX}LETTRE la specification de LETTRE\n");
+printf("est identique a la notation de printf()\n");
+printf("dont les codes possibles de LETTRE sont\n");
+printf("en majuscule pour le nouveau groupe,\n");
+printf("en minuscules pour l ancien groupe:\n");
+printf("F numero de la premiere ligne\n");
+printf("L numero de la derniere ligne\n");
+printf("N nombre de lignes = L-F+1\n");
+printf("E F-1\n");
+printf("M L+1 %(A=B?T:E) si A egal B alors T sinon E\n");
+printf("LFMT (uniquement) peut contenir :\n");
+printf("%L pour le contenu de la ligne\n");
+printf("%l pour le contenu de la ligne sans fin de ligne\n");
+printf("%[-][LARGEUR][.[PREC]]{doxX}n la specification du numero de ligne\n");
+printf("d entree selon le format de printf\n");
+printf("GFMT et LFMT peuvent contenir :\n");
+printf("%% %\n");
+printf("%c«C» le caractere «C» lui-meme\n");
+printf(" %c \\OOO» le caractere dont le code octal est OOO C le caractere C (les autres caracteres se representent eux-memes)\n");
+printf("-d, --minimal Rechercher assidûment le plus petit ensemble de differences\n");
+printf("--horizon-lines=N Retenir N lignes ayant des prefixes et suffixes identiques\n");
+printf("--speed-large-files Suppose de grands fichiers et de nombreux petits changements eparpilles\n");
+printf("--help Afficher cette aide et terminer\n");
+printf("-v, --version Afficher le nom et la version du logiciel et terminer \n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  Affichage
 void Affiche(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2)
 {
     int i,j,k;
@@ -360,11 +570,63 @@ void Affiche(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2
                         fgets(chaine2,1000,F2);
                         printf("> %s",chaine2);
                     }
-
                 }
             }
-
-
     }
+}
 
+
+// AFFICHAGE OPTION Y
+void AfficheY(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2)
+{
+    int i=0,j=0,k=0,LigneEnCours=1;
+    char chaine1[1000]="";
+    char chaine2[1000]="";
+    char * R1, *R2;
+    if( nbindice !=0 && nbindice2!=0)
+    {
+            R1=fgets(chaine1,1000,F1);
+            R2=fgets(chaine2,1000,F2);
+            while (R1!=NULL && R2 != NULL)
+            {
+                if(i<nbindice2 && tab2[i]<=LigneEnCours)
+                {
+                    printf("%-62s | %-62s \n"," ",chaine2);
+                    i++;
+                }
+                else
+                {
+                   if(chaine2[0]=='\n')
+                        printf("%-62s <"," ");
+                    else
+                        printf("%-62s   %-62s \n"," ",chaine2);
+                }
+                if(chaine1[0]=='\n')
+                {    printf("%-62s \n",chaine1);
+                     R1=fgets(chaine1,1000,F1);
+                }
+             printf("%-62s \n",chaine1);
+
+             LigneEnCours++;
+             R1=fgets(chaine1,1000,F1);
+             R2=fgets(chaine2,1000,F2);
+            }
+            if (R1==NULL && R2 !=NULL)
+            {
+                do
+               {    printf("%-62s > %-62s \n"," ",chaine2);
+                    R2=fgets(chaine2,1000,F2);
+                }while ( R2 != NULL);
+            }
+            else
+            {
+
+                do
+               {
+                     printf("%-62s ",chaine1);
+                     printf("< \n");
+                     R1=fgets(chaine1,1000,F1);
+               }while ( R1 != NULL);
+            }
+    }
 }
