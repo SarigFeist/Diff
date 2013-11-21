@@ -12,8 +12,8 @@ typedef enum boolean // creation du type booleen
 
 struct option // creation de la structure d'option
 {
-}
-;
+
+};
 
 
 // Declaration des fonctions
@@ -28,6 +28,7 @@ void HelpOption();
 int main(int argc, char** argv)
 {
     // declaration des variablese
+
     int *TabStockIndex1,*TabStockIndex2,Nombredelignes,Nombredelignes2,Nombreindice1,Nombreindice2;
     FILE* file1 = NULL;
     FILE* file2 = NULL;
@@ -57,8 +58,8 @@ int main(int argc, char** argv)
 
     // ______________________________TRAITEMENT _________________________________________\\
 
-    char chaine1[1000]="";
-    char chaine2[1000]="";
+    char chaine1[1000]=""; //ligne passer au option
+    char chaine2[1000]="";  //ligne passer au option
 
     char * r1,*r2;
     boolean difference,save,save2;
@@ -107,7 +108,7 @@ int main(int argc, char** argv)
             }
              else if (3 == argc) // Commande sans option
             {
-                //difference=DiffNoOption(chaine1,chaine2);
+                difference=DiffNoOption(chaine1,chaine2); //Metre l'option à tester ici, renvoyer un boolen vrai faux
 
             }
             else // Commande avec une ou plusieurs options
@@ -209,10 +210,11 @@ int main(int argc, char** argv)
         // ouverture des fichiers
 
         //Affiche(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
+        AfficheS(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
         fclose(file1);
         fclose(file2);
-        HelpOption();
-        VOption();
+        //HelpOption();
+        //VOption();
     return 0;
 }
 
@@ -325,10 +327,11 @@ boolean WOption(char * ch1, char *ch2)
     return false;
 }
 
+
 // Fonction version
 void VOption()
 {
-    printf(" Fonction Diff realiser par Emerich IMBART, Lucas .... , Laurent  Mazza Dans le cadre du projet de langage C pour L ESGI \n ");
+    printf(" Fonction Diff realiser par Emerich IMBART, Lucas GIRARDIN , Laurent  MAZZA Dans le cadre du projet de langage C pour L ESGI \n ");
 
 }
 
@@ -418,54 +421,6 @@ printf("--speed-large-files Suppose de grands fichiers et de nombreux petits cha
 printf("--help Afficher cette aide et terminer\n");
 printf("-v, --version Afficher le nom et la version du logiciel et terminer \n");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -628,5 +583,115 @@ void AfficheY(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice
                      R1=fgets(chaine1,1000,F1);
                }while ( R1 != NULL);
             }
+    }
+}
+
+
+void AfficheS(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2)
+{
+    int i,j,k;
+    char chaine1[1000]="";
+    char chaine2[1000]="";
+    if( nbindice !=0 && nbindice2!=0)
+    {
+            for (i=0;i<nbindice;i+=2)
+            {
+                if(tab1[i]==tab1[i+1])
+                {
+                    printf("%d",tab1[i]);
+
+                }
+                else
+                {
+                    printf("%d",tab1[i]);
+                    printf(",");
+                    printf("%d",tab1[i+1]);
+                }
+                if(i<nbindice2)
+                {
+                    if(tab2[i]==tab2[i+1])
+                    {
+                        printf("c");
+                        printf("%d",tab2[i]);
+                        printf("\n");
+                    }
+                    else
+                    {
+                        printf("c");
+                        printf("%d",tab2[i]);
+                        printf(",");
+                        printf("%d",tab2[i+1]);
+                        printf("\n");
+                    }
+                }
+                else
+                {
+                    printf("\n");
+                }
+
+                for( j=0;j<tab1[i];j++)
+                {
+                    fgets(chaine1,1000,F1);
+
+                    j++;
+                }
+                printf("< %s",chaine1);
+                for(k=tab1[i+1];j<=k;j++)
+                {
+                    fgets(chaine1,1000,F1);
+                    printf("< %s",chaine1);
+                }
+                if(i<nbindice2)
+                {
+                    printf("---\n");
+                    for( j=0;j<tab2[i];j++)
+                    {
+                        fgets(chaine2,1000,F2);
+                        j++;
+                    }
+                    printf("> %s",chaine2);
+                    for(k=tab2[i+1];j<=k;j++)
+                    {
+
+                        fgets(chaine2,1000,F2);
+                        printf("> %s",chaine2);
+                    }
+                }
+
+            }
+            if(nbindice<nbindice2)
+            {
+                for( ;i<nbindice2;i+=2)
+                {
+                    if(tab2[i]==tab2[i+1])
+                    {
+                        printf("%d",tab2[i]);
+                        printf("\n");
+                    }
+                    else
+                    {
+                        printf("%d",tab2[i]);
+                        printf(",");
+                        printf("%d",tab2[i+1]);
+                        printf("\n");
+                    }
+                    for( j=0;j<tab2[i];j++)
+                    {
+                        fgets(chaine2,1000,F2);
+                        j++;
+                    }
+                    printf("> %s",chaine2);
+
+                    for(k=tab2[i+1];j<k-1;j++)
+                    {
+                        fgets(chaine2,1000,F2);
+                        printf("> %s",chaine2);
+                    }
+                }
+            }
+    }
+    else
+    {
+        printf("Les fichiers sont identiques");
     }
 }
