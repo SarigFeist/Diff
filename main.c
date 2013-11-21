@@ -89,7 +89,6 @@ int main(int argc, char** argv)
         }
     }
 
-
     // ouverture des fichiers
     file1 = fopen(argv[argc-2], "r");
     file2 = fopen(argv[argc-1], "r");
@@ -337,18 +336,20 @@ int ParserOption(char * options)
     {
         if(cpt==0 && options[cpt]!='-')
            return 0;
-        if(cpt>0 && options[cpt]!='-') // option simple a une lettre
+        if(cpt>0 && options[1]!='-') // option simple a une lettre
         {
             if(options[cpt]=='e') ListOptions.ed=true;
-            if(options[cpt]=='v') ListOptions.v=true;
-            if(options[cpt]=='q') ListOptions.q=true;
-            if(options[cpt]=='w') ListOptions.w=true;
-            if(options[cpt]=='y') ListOptions.y=true;
+            else if(options[cpt]=='v') ListOptions.v=true;
+            else if(options[cpt]=='q') ListOptions.q=true;
+            else if(options[cpt]=='w') ListOptions.w=true;
+            else if(options[cpt]=='y') ListOptions.y=true;
+            else
+                return 0;
 
         }
         else // option nom complet
         {
-
+                return 0;
         }
 
         cpt++;
