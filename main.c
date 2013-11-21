@@ -567,7 +567,114 @@ void QOption()
     printf("Les fichiers sont differents");
 }
 
+void AfficheS(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2)
+{
+    int i,j,k;
+    char chaine1[1000]="";
+    char chaine2[1000]="";
+    if( nbindice !=0 && nbindice2!=0)
+    {
+            for (i=0;i<nbindice;i+=2)
+            {
+                if(tab1[i]==tab1[i+1])
+                {
+                    printf("%d",tab1[i]);
 
+                }
+                else
+                {
+                    printf("%d",tab1[i]);
+                    printf(",");
+                    printf("%d",tab1[i+1]);
+                }
+                if(i<nbindice2)
+                {
+                    if(tab2[i]==tab2[i+1])
+                    {
+                        printf("c");
+                        printf("%d",tab2[i]);
+                        printf("\n");
+                    }
+                    else
+                    {
+                        printf("c");
+                        printf("%d",tab2[i]);
+                        printf(",");
+                        printf("%d",tab2[i+1]);
+                        printf("\n");
+                    }
+                }
+                else
+                {
+                    printf("\n");
+                }
+
+                for( j=0;j<tab1[i];j++)
+                {
+                    fgets(chaine1,1000,F1);
+
+                    j++;
+                }
+                printf("< %s",chaine1);
+                for(k=tab1[i+1];j<=k;j++)
+                {
+                    fgets(chaine1,1000,F1);
+                    printf("< %s",chaine1);
+                }
+                if(i<nbindice2)
+                {
+                    printf("---\n");
+                    for( j=0;j<tab2[i];j++)
+                    {
+                        fgets(chaine2,1000,F2);
+                        j++;
+                    }
+                    printf("> %s",chaine2);
+                    for(k=tab2[i+1];j<=k;j++)
+                    {
+
+                        fgets(chaine2,1000,F2);
+                        printf("> %s",chaine2);
+                    }
+                }
+
+            }
+            if(nbindice<nbindice2)
+            {
+                for( ;i<nbindice2;i+=2)
+                {
+                    if(tab2[i]==tab2[i+1])
+                    {
+                        printf("%d",tab2[i]);
+                        printf("\n");
+                    }
+                    else
+                    {
+                        printf("%d",tab2[i]);
+                        printf(",");
+                        printf("%d",tab2[i+1]);
+                        printf("\n");
+                    }
+                    for( j=0;j<tab2[i];j++)
+                    {
+                        fgets(chaine2,1000,F2);
+                        j++;
+                    }
+                    printf("> %s",chaine2);
+
+                    for(k=tab2[i+1];j<k-1;j++)
+                    {
+                        fgets(chaine2,1000,F2);
+                        printf("> %s",chaine2);
+                    }
+                }
+            }
+    }
+    else
+    {
+        printf("Les fichiers sont identiques");
+    }
+}
 
 
 
