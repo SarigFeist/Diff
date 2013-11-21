@@ -18,10 +18,11 @@ typedef struct option // creation de la structure d'option
     boolean help;
     boolean ed;
     boolean v;
+    boolean s;
 
 } Goptions;
 
-Goptions ListOptions ={0,0,0,0,0,0};
+Goptions ListOptions ={0,0,0,0,0,0,0};
 
 
 // Declaration des fonctions
@@ -32,6 +33,7 @@ int ParserOption(char * options);
 
 void Affiche(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2);
 void AfficheY(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2);
+void AfficheS(int *tab1,int *tab2, FILE *F1, FILE *F2,int nbindice, int nbindice2);
 void VOption();
 void HelpOption();
 void QOption();
@@ -269,12 +271,20 @@ int main(int argc, char** argv)
                     AfficheY(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
                 else
                 {
-                    if(ListOptions.ed==true)
-                        EDOption();
+                    if(ListOptions.s == true)
+                    {
+                        AfficheS(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
+                    }
                     else
                     {
-                        Affiche(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
+                        if(ListOptions.ed==true)
+                            EDOption();
+                        else
+                        {
+                            Affiche(TabStockIndex1,TabStockIndex2,file1,file2,Nombreindice1,Nombreindice2);
+                        }
                     }
+
                 }
             }
         }
@@ -343,6 +353,7 @@ int ParserOption(char * options)
             else if(options[cpt]=='q') ListOptions.q=true;
             else if(options[cpt]=='w') ListOptions.w=true;
             else if(options[cpt]=='y') ListOptions.y=true;
+            else if(options[cpt]=='s') ListOptions.s=true;
             else
                 return 0;
 
